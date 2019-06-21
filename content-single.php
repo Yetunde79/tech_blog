@@ -1,6 +1,6 @@
-<div class="blog-post">
+<div >
         <h2 class="blog-post-title"><?php the_title(); ?></h2>
-    	<p class="blog-post-meta"><?php the_date(); ?> by <a href="#"><?php the_author(); ?></a></p>
+        <p class="blog-post-meta"> by  <?php the_author(); ?> - <?php the_date();  ?></p>
         <?php the_content(); ?>
 </div><!-- /.blog-post -->
 

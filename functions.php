@@ -2,6 +2,8 @@
 
 function beautifultheme_scripts() {
     wp_enqueue_style( 'blog', get_template_directory_uri() . '/css/blog.css' );
+    // wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.4.1.min.js');
+    // wp_enqueue_script( 'blog', get_template_directory_uri() . '/js/toggle.js' );
 }
 
 add_action( 'wp_enqueue_scripts', 'beautifultheme_scripts' );
@@ -50,15 +52,21 @@ function mytheme_setup() {
 
 add_action('after_setup_theme', 'mytheme_setup');
 
-// Twitter
-function setting_twitter() { ?>
-		<input type="text" name="twitter" id="twitter" value="<?php echo get_option('twitter'); ?>" />
-    <?php 
-}
+
     
 function setting_github() { ?>
 			<input type="text" name="github" id="github" value="<?php echo get_option('github'); ?>" />
       <?php 
+}
+
+function setting_linkedin() { ?>
+  <input type="text" name="linkedin" id="linkedin" value="<?php echo get_option('linkedin'); ?>" />
+  <?php 
+}
+
+function setting_twitter() { ?>
+  <input type="text" name="twitter" id="twitter" value="<?php echo get_option('twitter'); ?>" />
+  <?php 
 }
       
 function setting_medium() { ?>
@@ -68,12 +76,14 @@ function setting_medium() { ?>
 
 function custom_settings_page_setup() {
   add_settings_section('section', 'All Settings', null, 'theme-options');
-  add_settings_field('twitter', 'Twitter URL', 'setting_twitter', 'theme-options', 'section');
   add_settings_field('github', 'GitHub URL', 'setting_github', 'theme-options', 'section');
+  add_settings_field('linkedin', 'Linkedin URL', 'setting_linkedin', 'theme-options', 'section');
+  add_settings_field('twitter', 'Twitter URL', 'setting_twitter', 'theme-options', 'section');
   add_settings_field('medium', 'Medium URL', 'setting_medium', 'theme-options', 'section');
   
-	register_setting('section', 'twitter');
   register_setting('section', 'github');
+  register_setting('section', 'linkedin');
+  register_setting('section', 'twitter');
   register_setting('section', 'medium');
 }
 add_action( 'admin_init', 'custom_settings_page_setup' );
@@ -81,22 +91,3 @@ add_action( 'admin_init', 'custom_settings_page_setup' );
 // Support Featured Images
 add_theme_support( 'post-thumbnails' );
 
-// Custom Post Type
-function create_my_custom_post() {
-  register_post_type( 'my-custom-post',
-      array(
-      'labels' => array(
-  'name' => __( 'My Custom Post' ),
-  'singular_name' => __( 'My Custom Post' ),
-      ),
-      'public' => true,
-      'has_archive' => true,
-      'supports' => array(
-  'title',
-  'editor',
-  'thumbnail',
-  'custom-fields'
-      )
-  ));
-}
-add_action( 'init', 'create_my_custom_post' );
